@@ -1,0 +1,64 @@
+# ---- .NET Build Artifacts ----
+bin/
+obj/
+out/
+
+# ---- User-specific files ----
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ---- Visual Studio / VS Code ----
+.vs/
+.vscode/
+*.DS_Store
+
+# ---- Logs ----
+*.log
+logs/
+
+# ---- Environment & Secret Files ----
+.env
+*.env
+secrets.json
+
+# ---- Database Migrations Cache ----
+Migrations/
+
+# ---- ASP.NET Scaffolding ----
+ScaffoldingReadMe.txt
+
+# ---- NuGet Packages ----
+*.nupkg
+*.snupkg
+packages/
+
+# ---- Publish Output ----
+publish/
+*.pubxml
+*.publishsettings
+
+# ---- Coverage Reports ----
+coverage/
+*.coverage
+*.coveragexml
+
+# ---- Rider / JetBrains ----
+.idea/
+*.iml
+
+# ---- OS Generated Files ----
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ---- ReSharper ----
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# ---- Temporary Files ----
+~$*
+*.tmp
+*.temp
