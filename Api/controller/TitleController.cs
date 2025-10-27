@@ -18,7 +18,7 @@ namespace Api.Controllers
     {
         private readonly ITitleService _service;
 
-        public TitlesController(TitleService service)
+        public TitlesController(ITitleService service)
         {
             _service = service;
         }

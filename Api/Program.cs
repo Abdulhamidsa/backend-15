@@ -17,8 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Register Repository and Service
 builder.Services.AddScoped<ITitleRepository, TitleRepository>();
-builder.Services.AddScoped<TitleService>();
-
+builder.Services.AddScoped<ITitleService, TitleService>();
 
 builder.Services.AddControllers();
 
