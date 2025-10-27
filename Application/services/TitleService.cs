@@ -27,7 +27,7 @@ public class TitleService : ITitleService
 
     public async Task<IEnumerable<TitleDto>> SearchAsync(long userId, string query)
     {
-        var results = await _repository.SearchTitlesAsync(userId, $"%{query}%");
+        var results = await _repository.SearchTitlesAsyncc(userId, $"%{query}%");
         return results.Select(t => new TitleDto
         {
             Tconst = t.Tconst,

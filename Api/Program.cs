@@ -16,7 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 // Register Repository and Service
-builder.Services.AddScoped<ITitleRepository, TitleRepository>();
+builder.Services.AddScoped<ITitleService, TitleRepository>();
 builder.Services.AddScoped<TitleService>();
 
 builder.Services.AddControllers();
