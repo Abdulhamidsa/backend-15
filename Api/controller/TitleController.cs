@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Application.Services;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 
 
@@ -15,7 +16,7 @@ namespace Api.Controllers
     [Route("api/[controller]")]
     public class TitlesController : ControllerBase
     {
-        private readonly TitleService _service;
+        private readonly ITitleService _service;
 
         public TitlesController(TitleService service)
         {
