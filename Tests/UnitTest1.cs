@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace MovieApp.Tests
+namespace Tests
 {
     public class BasicTests
     {
