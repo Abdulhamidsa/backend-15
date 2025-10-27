@@ -19,6 +19,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<ITitleRepository, TitleRepository>();
 builder.Services.AddScoped<TitleService>();
 
+
 builder.Services.AddControllers();
 
 var app = builder.Build();
