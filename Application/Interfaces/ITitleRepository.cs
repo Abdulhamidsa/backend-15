@@ -1,8 +1,9 @@
-using Domain.Models;
+
+using Application.DTOs;
 
 namespace Application.Interfaces;
 
 public interface ITitleRepository
 {
-    Task<IEnumerable<Title>> GetAllAsync();
+    Task<IEnumerable<TitleDto>> GetAllAsync();
 }
