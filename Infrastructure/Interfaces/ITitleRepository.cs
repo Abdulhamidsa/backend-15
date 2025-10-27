@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Infrastructure.Models;
 
-namespace Application.Interfaces
+namespace Infrastructure.Interfaces
 {
     public interface ITitleRepository
     {
