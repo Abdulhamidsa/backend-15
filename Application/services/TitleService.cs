@@ -1,6 +1,5 @@
 using Application.DTOs;
 using Application.Interfaces;
-using Application.Models;
 
 namespace Application.Services;
 
