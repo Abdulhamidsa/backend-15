@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Infrastructure.Models;
+using Application.Models;
 
 namespace Infrastructure.Interfaces
 {
