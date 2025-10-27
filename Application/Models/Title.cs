@@ -1,4 +1,4 @@
-namespace Infrastructure.Models;
+namespace Application.Models;
 
 public class Title
 {
@@ -6,7 +6,7 @@ public class Title
     public string? TitleType { get; set; }
     public string? PrimaryTitle { get; set; }
     public string? OriginalTitle { get; set; }
-    public bool? IsAdult { get; set; }
+    public bool IsAdult { get; set; }
     public int? StartYear { get; set; }
     public int? EndYear { get; set; }
     public int? RuntimeMinutes { get; set; }

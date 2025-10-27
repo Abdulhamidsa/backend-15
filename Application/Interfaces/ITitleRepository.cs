@@ -1,9 +1,9 @@
 
-using Application.DTOs;
+using Application.Models;
 
 namespace Application.Interfaces;
 
 public interface ITitleRepository
 {
-    Task<IEnumerable<TitleDto>> GetAllAsync();
+    Task<IEnumerable<Title>> GetAllAsync();
 }

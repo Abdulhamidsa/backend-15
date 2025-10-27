@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data;
-using Infrastructure.Interfaces;
+using Application.Interfaces;
 using Infrastructure.Repositories;
 using Application.Services;
 using DotNetEnv;

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data;
-using Infrastructure.Models;
-using Infrastructure.Interfaces;
+using Application.Models;
+using Application.Interfaces;
 
 namespace Infrastructure.Repositories
 {
@@ -17,7 +17,7 @@ namespace Infrastructure.Repositories
         public async Task<IEnumerable<Title>> GetAllAsync() 
         {
             return await _context.Titles
-                                 .FromSqlRaw("SELECT * FROM get_all_movies()")
+                                 .FromSqlRaw("SELECT * FROM get_all_movies() LIMIT 10")
                                  .ToListAsync();
         }
     }

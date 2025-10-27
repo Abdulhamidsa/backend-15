@@ -23,8 +23,6 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        
         public async Task<IActionResult> GetAll()
         {
             var titles = await _service.GetAllTitlesAsync();
