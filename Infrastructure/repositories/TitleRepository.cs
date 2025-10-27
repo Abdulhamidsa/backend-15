@@ -20,5 +20,12 @@ namespace Infrastructure.Repositories
                                  .FromSqlRaw("SELECT * FROM get_all_movies() LIMIT 10")
                                  .ToListAsync();
         }
+
+        // Example 2: Call string_search(uid, pattern)
+        public async Task<IEnumerable<Title>> SearchTitlesAsync(long userId, string pattern)
+        {
+            var sql = "SELECT * FROM string_search({0}, {1})";
+            return await _context.Titles.FromSqlRaw(sql, userId, pattern).ToListAsync();
+        }
     }
 }
