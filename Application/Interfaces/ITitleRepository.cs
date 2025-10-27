@@ -1,5 +1,5 @@
 
-using Application.Models;
+using Domain.Models;
 
 namespace Application.Interfaces;
 
