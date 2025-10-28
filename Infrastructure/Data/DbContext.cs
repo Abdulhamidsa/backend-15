@@ -8,6 +8,8 @@ namespace Infrastructure.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Title> Titles { get; set; }
+            public DbSet<User> Users  => Set<User>();
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
