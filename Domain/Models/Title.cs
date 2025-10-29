@@ -29,4 +29,9 @@ public class Title
     public ICollection<TitleCharacter> Characters { get; set; } = new List<TitleCharacter>();
     public ICollection<TitleEpisode> Episodes { get; set; } = new List<TitleEpisode>();
     public ICollection<NameKnownForTitle> KnownBy { get; set; } = new List<NameKnownForTitle>();
+
+    // Framework
+    public ICollection<UserRating> UserRatings { get; set; } = new List<UserRating>();
+    public ICollection<Bookmark> Bookmarks { get; set; } = new List<Bookmark>();
+    public ICollection<RatingHistory> RatingHistories { get; set; } = new List<RatingHistory>();
 }
