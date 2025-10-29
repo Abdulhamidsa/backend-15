@@ -30,6 +30,6 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddControllers();
 
 var app = builder.Build();
-// app.UseMiddleware<Api.Middleware.ExceptionMiddleware>();
+app.UseMiddleware<Api.Middleware.ExceptionMiddleware>();
 app.MapControllers();
 app.Run();
