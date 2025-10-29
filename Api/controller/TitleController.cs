@@ -29,5 +29,12 @@ namespace Api.Controllers
             var titles = await _service.GetAllTitlesAsync();
             return Ok(titles);
         }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> Search([FromQuery] long userId, [FromQuery] string q)
+        {
+            var results = await _service.SearchTitlesAsync(userId, q);
+            return Ok(results);
+        }
     }
 }
