@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class NameProfession
+    public class Profession
     {
-        public string Nconst { get; set; } = null!;
         public int ProfessionId { get; set; }
-
-        public Name Person { get; set; } = null!;
-        public Profession Profession { get; set; } = null!;
+        public string Name { get; set; } = null!;
+        public ICollection<NameProfession> NameProfessions { get; set; } = new List<NameProfession>();
     }
 }

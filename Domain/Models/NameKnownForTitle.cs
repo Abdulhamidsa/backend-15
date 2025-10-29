@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class NameProfession
+    public class NameKnownForTitle
     {
         public string Nconst { get; set; } = null!;
-        public int ProfessionId { get; set; }
-
+        public string Tconst { get; set; } = null!;
         public Name Person { get; set; } = null!;
-        public Profession Profession { get; set; } = null!;
+        public Title Title { get; set; } = null!;
     }
 }

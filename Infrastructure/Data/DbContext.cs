@@ -9,7 +9,7 @@ namespace Infrastructure.Data
 
         public DbSet<Title> Titles { get; set; }
         public DbSet<SearchHistory> SearchHistories { get; set; }
-        public DbSet<Bookmarks> Bookmarks { get; set; }
+        public DbSet<Bookmark> Bookmarks { get; set; }
         public DbSet<Genre> Genre { get; set; }
 
 

@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class NameProfession
+    public class Name
     {
         public string Nconst { get; set; } = null!;
-        public int ProfessionId { get; set; }
-
-        public Name Person { get; set; } = null!;
-        public Profession Profession { get; set; } = null!;
+        public string PrimaryName { get; set; } = null!;
+        public int? BirthYear { get; set; }
+        public int? DeathYear { get; set; }
     }
 }
