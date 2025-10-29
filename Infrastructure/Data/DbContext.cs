@@ -64,11 +64,6 @@ namespace Infrastructure.Data
                 e.HasOne(t => t.TitleBasics).WithMany(tb => tb.AlternateTitles).HasForeignKey(t => t.TitleId);
             });
 
-
-
-
-
-
         }
     }
 }

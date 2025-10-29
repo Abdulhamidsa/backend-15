@@ -1,8 +1,8 @@
 ﻿using System;
 namespace Domain.Models
-
-public class TitleAkas
 {
+    public class TitleAkas
+    {
     public required string TitleId { get; set; }           // FK to TitleBasics
     public required int Ordering { get; set; }             // Display order
     public required string Title { get; set; }             // Alternate title
@@ -13,5 +13,6 @@ public class TitleAkas
     public bool IsOriginalTitle { get; set; }              // True if it's the original title
 
     public TitleBasics? TitleBasics { get; set; }
+    }
 }
 
