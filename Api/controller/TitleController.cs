@@ -30,6 +30,13 @@ namespace Api.Controllers
             return Ok(titles);
         }
 
+        [HttpGet("series")]
+        public async Task<IActionResult> GetAllSeries()
+        {
+            var series = await _service.GetAllSeriesAsync();
+            return Ok(series);
+        }
+
         [HttpGet("search")]
         public async Task<IActionResult> Search([FromQuery] long userId, [FromQuery] string q)
         {

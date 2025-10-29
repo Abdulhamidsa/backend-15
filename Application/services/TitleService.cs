@@ -24,6 +24,18 @@ public class TitleService : ITitleService
         });
     }
 
+    public async Task<IEnumerable<TitleDto>> GetAllSeriesAsync()
+    {
+        var series = await _repository.GetAllSeriesAsync();
+
+        return series.Select(s => new TitleDto
+        {
+            Tconst = s.Tconst,
+            PrimaryTitle = s.PrimaryTitle,
+            StartYear = s.StartYear
+        });
+    }
+
     public async Task<IEnumerable<TitleDto>> SearchTitlesAsync(long userId, string query)
     {
         var results = await _repository.SearchTitlesAsync(userId, $"%{query}%");

@@ -1,3 +1,6 @@
+using Domain.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +14,6 @@ namespace Infrastructure.Data.Configurations
         {
             entity.ToTable("title_writers");
             entity.HasKey(e => new { e.Tconst, e.Nconst });
-        } 
+        }
     }
 }
