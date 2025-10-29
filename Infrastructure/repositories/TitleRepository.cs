@@ -21,6 +21,14 @@ namespace Infrastructure.Repositories
                                  .ToListAsync();
         }
 
+        public async Task<IEnumerable<Title>> GetAllSeriesAsync()
+        {
+            return await _context.Titles
+                .FromSqlRaw("SELECT * FROM get_all_series() LIMIT 20")
+                .ToListAsync();
+        }
+
+
         public async Task<IEnumerable<Title>> SearchTitlesAsync(long userId, string pattern)
         {
             var sql = @"
