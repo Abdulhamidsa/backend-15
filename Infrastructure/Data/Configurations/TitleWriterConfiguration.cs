@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Configurations
 {
-    public class TitleDirectorConfiguration : IEntityTypeConfiguration<TitleDirector>
+    public class TitleWriterConfiguration : IEntityTypeConfiguration<TitleWriter>
     {
-       public void Configure(EntityTypeBuilder<TitleDirector> entity)
+       public void Configure(EntityTypeBuilder<TitleWriter> entity)
         {
-            entity.ToTable("title_directors");
+            entity.ToTable("title_writers");
             entity.HasKey(e => new { e.Tconst, e.Nconst });
         } 
     }
