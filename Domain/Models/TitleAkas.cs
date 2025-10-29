@@ -6,7 +6,7 @@ namespace Domain.Models
     {
         public string TitleId { get; set; } = null!;       
         public int Ordering { get; set; }             // Display order
-        public string Title { get; set; }             // Alternate title
+        public string? Title { get; set; }             // Alternate title
         public string? Region { get; set; }                    // Country/region code
         public string? Language { get; set; }                  // Language code
         public string? Types { get; set; }                     // e.g., "alternative", "working"
