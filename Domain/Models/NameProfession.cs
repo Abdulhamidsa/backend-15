@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Application.Models;
+namespace Domain.Models
 
 public class NameProfession
 {
