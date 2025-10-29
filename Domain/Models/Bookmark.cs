@@ -13,7 +13,7 @@ namespace Domain.Models
         public string Tconst { get; set; } = null!;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        //public User User { get; set; } = null!;
+        public User User { get; set; } = null!;
         public Title Title { get; set; } = null!;
     }
 }

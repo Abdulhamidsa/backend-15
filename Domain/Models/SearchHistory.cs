@@ -12,5 +12,6 @@ namespace Domain.Models
         public long UserId { get; set; }
         public string SearchQuery { get; set; } = null!;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public User User { get; set; } = null!;
     }
 }
