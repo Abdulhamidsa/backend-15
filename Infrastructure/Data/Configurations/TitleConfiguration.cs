@@ -27,6 +27,10 @@ namespace Infrastructure.Data.Configurations
             entity.Property(e => e.BoxOffice).HasColumnName("boxoffice");
             entity.Property(e => e.Website).HasColumnName("website");
             entity.Property(e => e.Metascore).HasColumnName("metascore");
+
+            entity.HasMany(e => e.TitleGenres)
+                  .WithOne(g => g.Title)
+                  .HasForeignKey(g => g.Tconst);
         }
     }
 }
