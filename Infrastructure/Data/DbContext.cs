@@ -12,6 +12,7 @@ namespace Infrastructure.Data
         public DbSet<SearchHistory> SearchHistories { get; set; }
         public DbSet<Bookmark> Bookmarks { get; set; }
         public DbSet<Genre> Genre { get; set; }
+        public DbSet<Name> Names { get; set; }
 
 
 
