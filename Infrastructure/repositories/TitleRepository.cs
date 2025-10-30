@@ -14,12 +14,20 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Title>> GetAllAsync() 
+        public async Task<IEnumerable<Title>> GetAllMoviesAsync() 
         {
             return await _context.Titles
-                                 .FromSqlRaw("SELECT * FROM get_all_movies() LIMIT 10")
+                                 .FromSqlRaw("SELECT * FROM get_all_movies()")
                                  .ToListAsync();
         }
+
+        public async Task<IEnumerable<Title>> GetAllSeriesAsync()
+        {
+            return await _context.Titles
+                .FromSqlRaw("SELECT * FROM get_all_series()")
+                .ToListAsync();
+        }
+
 
         public async Task<IEnumerable<Title>> SearchTitlesAsync(long userId, string pattern)
         {

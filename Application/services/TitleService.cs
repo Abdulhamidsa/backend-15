@@ -12,15 +12,27 @@ public class TitleService : ITitleService
         _repository = repository;
     }
 
-    public async Task<IEnumerable<TitleDto>> GetAllTitlesAsync()
+    public async Task<IEnumerable<TitleDto>> GetAllMoviesAsync()
     {
-        var titles = await _repository.GetAllAsync();
+        var titles = await _repository.GetAllMoviesAsync();
 
         return titles.Select(t => new TitleDto
         {
             Tconst = t.Tconst,
             PrimaryTitle = t.PrimaryTitle,
             StartYear = t.StartYear
+        });
+    }
+
+    public async Task<IEnumerable<TitleDto>> GetAllSeriesAsync()
+    {
+        var series = await _repository.GetAllSeriesAsync();
+
+        return series.Select(s => new TitleDto
+        {
+            Tconst = s.Tconst,
+            PrimaryTitle = s.PrimaryTitle,
+            StartYear = s.StartYear
         });
     }
 

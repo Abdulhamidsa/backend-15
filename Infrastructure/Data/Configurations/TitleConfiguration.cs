@@ -27,6 +27,36 @@ namespace Infrastructure.Data.Configurations
             entity.Property(e => e.BoxOffice).HasColumnName("boxoffice");
             entity.Property(e => e.Website).HasColumnName("website");
             entity.Property(e => e.Metascore).HasColumnName("metascore");
+
+            // Relationships
+            entity.HasMany(e => e.AlternateTitles)
+                  .WithOne(a => a.TitleRef)
+                  .HasForeignKey(a => a.TitleId);
+
+            entity.HasMany(e => e.TitleGenres)
+                  .WithOne(g => g.Title)
+                  .HasForeignKey(g => g.Tconst);
+
+            entity.HasMany(e => e.Directors)
+                  .WithOne(d => d.Title)
+                  .HasForeignKey(d => d.Tconst);
+
+            entity.HasMany(e => e.Writers)
+                  .WithOne(w => w.Title)
+                  .HasForeignKey(w => w.Tconst);
+
+            entity.HasMany(e => e.Principals)
+                  .WithOne(p => p.Title)
+                  .HasForeignKey(p => p.Tconst);
+
+            entity.HasMany(e => e.Characters)
+                  .WithOne(c => c.Title)
+                  .HasForeignKey(c => c.Tconst);
+
+            entity.HasMany(e => e.Episodes)
+                  .WithOne(e => e.ParentTitle)
+                  .HasForeignKey(e => e.ParentTconst)
+                  .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

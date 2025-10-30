@@ -19,4 +19,19 @@ public class Title
     public decimal? BoxOffice { get; set; }
     public string? Website { get; set; }
     public int? Metascore { get; set; }
+
+    // Relationships
+    public ICollection<TitleAka> AlternateTitles { get; set; } = new List<TitleAka>();
+    public ICollection<TitleGenre> TitleGenres { get; set; } = new List<TitleGenre>();
+    public ICollection<TitleDirector> Directors { get; set; } = new List<TitleDirector>();
+    public ICollection<TitleWriter> Writers { get; set; } = new List<TitleWriter>();
+    public ICollection<TitlePrincipal> Principals { get; set; } = new List<TitlePrincipal>();
+    public ICollection<TitleCharacter> Characters { get; set; } = new List<TitleCharacter>();
+    public ICollection<TitleEpisode> Episodes { get; set; } = new List<TitleEpisode>();
+    public ICollection<NameKnownForTitle> KnownBy { get; set; } = new List<NameKnownForTitle>();
+
+    // Framework
+    public ICollection<UserRating> UserRatings { get; set; } = new List<UserRating>();
+    public ICollection<Bookmark> Bookmarks { get; set; } = new List<Bookmark>();
+    public ICollection<RatingHistory> RatingHistories { get; set; } = new List<RatingHistory>();
 }

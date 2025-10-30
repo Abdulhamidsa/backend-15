@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Bookmark
+    public class TitlePrincipal
     {
-        public long BookmarkId { get; set; }
-        public long UserId { get; set; }
         public string Tconst { get; set; } = null!;
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public string Nconst { get; set; } = null!;
+        public int Ordering { get; set; }
+        public string? Category { get; set; }
+        public string? Job { get; set; }
 
-        public User User { get; set; } = null!;
         public Title Title { get; set; } = null!;
+        public Name Person { get; set; } = null!;
     }
 }
