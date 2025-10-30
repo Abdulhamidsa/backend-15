@@ -1,9 +1,10 @@
 using Application.DTOs;
 
-namespace Application.Interfaces;
-
-public interface IUserService
+namespace Application.Interfaces
 {
-    Task<AuthResponse> RegisterAsync(RegisterRequest request);
-    Task<AuthResponse> LoginAsync(LoginRequest request);
+    public interface IUserService
+    {
+        Task<AuthResponse> RegisterAsync(RegisterRequest request);
+        Task<AuthResponse> LoginAsync(LoginRequest request);
+    }
 }

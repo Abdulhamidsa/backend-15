@@ -1,76 +1,79 @@
 using Application.DTOs;
 using Application.Interfaces;
-using Application.Services.Security;
 using Domain.Models;
+using Application.Services.Security; 
 
-namespace Application.Services;
-
-public class UserService : IUserService
+namespace Application.Services
 {
-    private readonly IUserRepository _users;
-
-    public UserService(IUserRepository users) => _users = users;
-
-    public async Task<AuthResponse> RegisterAsync(RegisterRequest request)
+    public class UserService : IUserService
     {
-        // Normalize inputs
-        var email = request.Email.Trim().ToLowerInvariant();
-        var username = request.Username.Trim();
+        private readonly IUserRepository _users;
+        private readonly IJwtService _jwtService;  
 
-        // Check if email or username already exists
-        if (await _users.GetByEmailAsync(email) is not null)
-            throw new InvalidOperationException("Email already in use.");
-
-        if (await _users.GetByUsernameAsync(username) is not null)
-            throw new InvalidOperationException("Username already in use.");
-
-        // Hash password (BCrypt handles salt internally)
-        var hash = PasswordHasher.Hash(request.Password);
-
-        var user = new User
+        public UserService(IUserRepository users, IJwtService jwtService)
         {
-            Email = email,
-            Username = username,
-            PasswordHash = hash
-        };
+            _users = users;
+            _jwtService = jwtService;
+        }
 
-        user = await _users.CreateAsync(user);
-
-        // TODO: Generate JWT here later
-        return new AuthResponse
+        public async Task<AuthResponse> RegisterAsync(RegisterRequest request)
         {
-            UserId = user.Id,
-            Email = user.Email,
-            Username = user.Username,
-            AccessToken = null,   // to be implemented
-            RefreshToken = null   // to be implemented
-        };
-    }
+            var email = request.Email.Trim().ToLowerInvariant();
+            var username = request.Username.Trim();
 
-    public async Task<AuthResponse> LoginAsync(LoginRequest request)
-    {
-        // Find user by email or username
-        var key = request.EmailOrUsername.Trim();
-        var user = key.Contains('@')
-            ? await _users.GetByEmailAsync(key.ToLowerInvariant())
-            : await _users.GetByUsernameAsync(key);
+            if (await _users.GetByEmailAsync(email) is not null)
+                throw new InvalidOperationException("Email already in use.");
 
-        if (user is null)
-            throw new InvalidOperationException("Invalid credentials.");
+            if (await _users.GetByUsernameAsync(username) is not null)
+                throw new InvalidOperationException("Username already in use.");
 
-        // Verify password
-        var ok = PasswordHasher.Verify(request.Password, user.PasswordHash);
-        if (!ok)
-            throw new InvalidOperationException("Invalid credentials.");
+            var hash = PasswordHasher.Hash(request.Password);
 
-        // TODO: Generate JWT here later
-        return new AuthResponse
+            var user = new User
+            {
+                Email = email,
+                Username = username,
+                PasswordHash = hash
+            };
+
+            user = await _users.CreateAsync(user);
+
+            var token = _jwtService.GenerateToken(user.Id, user.Username, user.Email);
+
+            return new AuthResponse
+            {
+                UserId = user.Id,
+                Email = user.Email,
+                Username = user.Username,
+                AccessToken = token,
+                RefreshToken = null
+            };
+        }
+
+        public async Task<AuthResponse> LoginAsync(LoginRequest request)
         {
-            UserId = user.Id,
-            Email = user.Email,
-            Username = user.Username,
-            AccessToken = null,
-            RefreshToken = null
-        };
+            var key = request.EmailOrUsername.Trim();
+            var user = key.Contains('@')
+                ? await _users.GetByEmailAsync(key.ToLowerInvariant())
+                : await _users.GetByUsernameAsync(key);
+
+            if (user is null)
+                throw new InvalidOperationException("Invalid credentials.");
+
+            var ok = PasswordHasher.Verify(request.Password, user.PasswordHash);
+            if (!ok)
+                throw new InvalidOperationException("Invalid credentials.");
+
+            var token = _jwtService.GenerateToken(user.Id, user.Username, user.Email);
+
+            return new AuthResponse
+            {
+                UserId = user.Id,
+                Email = user.Email,
+                Username = user.Username,
+                AccessToken = token,
+                RefreshToken = null
+            };
+        }
     }
 }
