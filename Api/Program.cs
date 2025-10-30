@@ -1,15 +1,17 @@
-using Microsoft.EntityFrameworkCore;
-using Infrastructure.Data;
+using Application.Common;
 using Application.Interfaces;
-using Infrastructure.Repositories;
+using Application.services;
 using Application.Services;
+using DotNetEnv;
+using Infrastructure.Data;
+using Infrastructure.repositories;
+using Infrastructure.Repositories;
 using Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Application.Common;
-using DotNetEnv;
-using System.Text;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,8 @@ builder.Services.AddScoped<ITitleRepository, TitleRepository>();
 builder.Services.AddScoped<ITitleService, TitleService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPeopleRepository, PeopleRepository>();
+builder.Services.AddScoped<IPeopleService, PeopleService>();
 
 builder.Services.Configure<JwtSettings>(options =>
 {
