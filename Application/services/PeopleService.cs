@@ -16,7 +16,8 @@ namespace Application.services
         {
             _repo = repo;
         }
-        public Task<IEnumerable<CelebritySummaryDto>> GetPopularAsync()
+
+        public async Task<IEnumerable<CelebritySummaryDto>> GetPopularAsync()
         {
             var rows = await _repo.GetPopularAsync();
 
@@ -28,12 +29,29 @@ namespace Application.services
                 Age = r.Age,
                 Rating = r.Weighted_Avg
             });
-        
         }
 
-        public Task<CelebrityProfileDto?> GetProfileAsync(string nconst)
+        public async Task<CelebrityProfileDto?> GetProfileAsync(string nconst)
         {
-            throw new NotImplementedException();
+            var row = await _repo.GetProfileAsync(nconst);
+            if (row == null)
+                return null;
+
+            return new CelebrityProfileDto
+            {
+                Nconst = row.Nconst,
+                Name = row.PrimaryName,
+                BirthYear = row.BirthYear,
+                DeathYear = row.DeathYear,
+                Professions = row.Professions,
+                Rating = row.Weighted_Avg,
+                KnownFor = row.KnownFor,
+                CreditsCount = row.CreditsCount,
+                Awards = row.AggregatedAwards,
+                PhotoUrl = row.PhotoUrl,
+                Bio = row.Bio,
+                TotalVotes = row.Total_Votes
+            };
         }
     }
 }
