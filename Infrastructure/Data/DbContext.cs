@@ -13,6 +13,7 @@ namespace Infrastructure.Data
         public DbSet<Bookmark> Bookmarks { get; set; }
         public DbSet<Genre> Genre { get; set; }
         public DbSet<Name> Names { get; set; }
+        public DbSet<PersonMetadata> PersonMetadata { get; set; }
 
 
 
