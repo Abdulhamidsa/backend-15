@@ -12,9 +12,9 @@ public class TitleService : ITitleService
         _repository = repository;
     }
 
-    public async Task<IEnumerable<TitleDto>> GetAllTitlesAsync()
+    public async Task<IEnumerable<TitleDto>> GetAllMoviesAsync()
     {
-        var titles = await _repository.GetAllAsync();
+        var titles = await _repository.GetAllMoviesAsync();
 
         return titles.Select(t => new TitleDto
         {

@@ -6,7 +6,7 @@ namespace Application.Interfaces;
 
 public interface ITitleRepository
 {
-    Task<IEnumerable<Title>> GetAllAsync();
+    Task<IEnumerable<Title>> GetAllMoviesAsync();
     Task<IEnumerable<Title>> GetAllSeriesAsync();
     Task<IEnumerable<Title>> SearchTitlesAsync(long userId, string query);
    
