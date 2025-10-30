@@ -7,7 +7,6 @@ using Application.Common;
 namespace Api.Controllers
 {
     [ApiController]
-    [Authorize]
     [Route("api/[controller]")]
     public class TitlesController : ControllerBase
     {
@@ -21,15 +20,15 @@ namespace Api.Controllers
         [HttpGet ("movies")]
         public async Task<IActionResult> GetAllMovies()
         {
-            var titles = await _service.GetAllMoviesAsync();
-            return Ok(ApiResponse<IEnumerable<TitleDto>>.Ok(titles, "Titles fetched"));
+            var movies = await _service.GetAllMoviesAsync();
+            return Ok(ApiResponse<IEnumerable<TitleDto>>.Ok(movies, "Movies fetched"));
         }
 
         [HttpGet("series")]
         public async Task<IActionResult> GetAllSeries()
         {
             var series = await _service.GetAllSeriesAsync();
-            return Ok(series);
+            return Ok(ApiResponse<IEnumerable<TitleDto>>.Ok(series, "Series fetched"));
         }
     
 
