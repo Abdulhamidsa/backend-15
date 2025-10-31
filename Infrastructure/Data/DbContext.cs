@@ -1,4 +1,5 @@
 using Domain.Models;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
@@ -12,6 +13,8 @@ namespace Infrastructure.Data
         public DbSet<SearchHistory> SearchHistories { get; set; }
         public DbSet<Bookmark> Bookmarks { get; set; }
         public DbSet<Genre> Genre { get; set; }
+        public DbSet<UserRating> Ratings { get; set; }
+
 
 
 
