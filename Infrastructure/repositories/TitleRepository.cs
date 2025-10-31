@@ -17,14 +17,14 @@ namespace Infrastructure.Repositories
         public async Task<IEnumerable<Title>> GetAllMoviesAsync()
         {
             return await _context.Titles
-                                 .FromSqlRaw("SELECT * FROM get_all_titles()")
+                                 .FromSqlRaw("SELECT * FROM get_all_titles('movie')")
                                  .ToListAsync();
         }
 
         public async Task<IEnumerable<Title>> GetAllSeriesAsync()
         {
             return await _context.Titles
-                .FromSqlRaw("SELECT * FROM get_all_series('series')")
+                .FromSqlRaw("SELECT * FROM get_all_titles('tvEpisode')")
                 .ToListAsync();
         }
 

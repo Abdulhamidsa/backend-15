@@ -1,4 +1,5 @@
-﻿using Application.Common;
+﻿using Api.Helpers;
+using Application.Common;
 using Application.DTOs;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +19,7 @@ namespace Api.Controllers
             _service = service;
         }
 
-        [HttpGet ("movies")]
+        [HttpGet("movies")]
         public async Task<IActionResult> GetAllMovies()
         {
             var movies = await _service.GetAllMoviesAsync();
@@ -33,7 +34,7 @@ namespace Api.Controllers
         }
 
 
-        
+
         [Authorize]
         [HttpGet("search")]
         public async Task<IActionResult> Search([FromQuery] string q)
@@ -41,22 +42,7 @@ namespace Api.Controllers
             if (string.IsNullOrWhiteSpace(q))
                 return BadRequest("Search query cannot be empty.");
 
-            // ✅ Extract user ID from authenticated JWT claims
-            
-            var userIdClaim =
-                User.FindFirst("sub")?.Value ??
-                User.FindFirst(ClaimTypes.NameIdentifier)?.Value ??
-                User.FindFirst("user_id")?.Value ??
-                User.FindFirst("userid")?.Value;
-
-            if (userIdClaim == null)
-                return Unauthorized("User ID not found in token.");
-
-
-            if (!long.TryParse(userIdClaim, out var userId))
-                return Unauthorized("Invalid user ID in token.");
-
-            // Calling service with authenticated user's ID
+            var userId = User.GetUserId();
             var results = await _service.SearchTitlesAsync(userId, q);
 
             return Ok(ApiResponse<object>.Ok(results, "Search completed successfully."));
