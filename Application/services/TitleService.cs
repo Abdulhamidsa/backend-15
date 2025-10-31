@@ -50,8 +50,20 @@ public class TitleService : ITitleService
         });
     }
 
-    public Task<IEnumerable<TitleCatalogDto>> GetTitlesAsync(string? titleType, string? genre)
+    public async Task<IEnumerable<TitleCatalogDto>> GetTitlesAsync(string? titleType, string? genre)
     {
-        throw new NotImplementedException();
+        var rows = await _repository.GetTitlesAsync(titleType, genre);
+
+        return rows.Select(r => new TitleCatalogDto
+        {
+            Id = r.Tconst,
+            Title = r.PrimaryTitle,
+            Year = r.StartYear,
+            Type = r.TitleType,
+            Poster = r.Poster,
+            Genre = r.Genre, // will be like "Action" or "Action, Thriller"
+            
+        });
     }
 }
+

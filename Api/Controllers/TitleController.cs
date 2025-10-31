@@ -32,9 +32,15 @@ namespace Api.Controllers
             return Ok(ApiResponse<IEnumerable<TitleDto>>.Ok(series, "Series fetched"));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetCatalog([FromQuery] string? type, [FromQuery] string? genre)
+        {
+            var data = await _service.GetTitlesAsync(type, genre);
 
-        
-        [Authorize]
+            return Ok(ApiResponse<object>.Ok(data, "OK"));
+        }
+
+            [Authorize]
         [HttpGet("search")]
         public async Task<IActionResult> Search([FromQuery] string q)
         {
