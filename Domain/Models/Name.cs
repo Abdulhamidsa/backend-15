@@ -21,5 +21,6 @@ namespace Domain.Models
         public ICollection<TitleWriter> WrittenTitles { get; set; } = new List<TitleWriter>();
         public ICollection<NameKnownForTitle> KnownForTitles { get; set; } = new List<NameKnownForTitle>();
         public NameRating? NameRating { get; set; }
+        public PersonMetadata? Metadata { get; set; }
     }
 }

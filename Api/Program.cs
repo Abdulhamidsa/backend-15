@@ -1,12 +1,16 @@
-using Microsoft.EntityFrameworkCore;
-using Infrastructure.Data;
+using Application.Common;
 using Application.Interfaces;
-using Infrastructure.Repositories;
+using Application.services;
 using Application.Services;
+using DotNetEnv;
+using Infrastructure.Data;
+using Infrastructure.repositories;
+using Infrastructure.Repositories;
 using Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using DotNetEnv;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +30,9 @@ builder.Services.AddScoped<IBookmarkRepository, BookmarkRepository>();
 builder.Services.AddScoped<IBookmarkService, BookmarkService>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 builder.Services.AddScoped<IRatingService, RatingService>();
+builder.Services.AddScoped<IPeopleRepository, PeopleRepository>();
+builder.Services.AddScoped<IPeopleService, PeopleService>();
+
 builder.Services.Configure<JwtSettings>(options =>
 {
     options.SecretKey = Environment.GetEnvironmentVariable("JWT_SECRET")!;
