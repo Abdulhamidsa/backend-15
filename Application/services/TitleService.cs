@@ -12,9 +12,9 @@ public class TitleService : ITitleService
         _repository = repository;
     }
 
-    public async Task<IEnumerable<TitleDto>> GetAllMoviesAsync()
+    public async Task<IEnumerable<TitleDto>> GetpopularTitlesAsync()
     {
-        var titles = await _repository.GetAllMoviesAsync();
+        var titles = await _repository.GetpopularTitlesAsync();
 
         return titles.Select(t => new TitleDto
         {
@@ -50,4 +50,8 @@ public class TitleService : ITitleService
         });
     }
 
+    public Task<IEnumerable<TitleCatalogDto>> GetTitlesAsync(string? titleType, string? genre)
+    {
+        throw new NotImplementedException();
+    }
 }

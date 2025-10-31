@@ -21,7 +21,7 @@ namespace Api.Controllers
         [HttpGet ("movies")]
         public async Task<IActionResult> GetAllMovies()
         {
-            var movies = await _service.GetAllMoviesAsync();
+            var movies = await _service.GetpopularTitlesAsync();
             return Ok(ApiResponse<IEnumerable<TitleDto>>.Ok(movies, "Movies fetched"));
         }
 

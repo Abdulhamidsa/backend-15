@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data;
 using Domain.Models;
 using Application.Interfaces;
+using Application.RowClasses;
 
 namespace Infrastructure.Repositories
 {
@@ -14,7 +15,7 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Title>> GetAllMoviesAsync()
+        public async Task<IEnumerable<Title>> GetpopularTitlesAsync()
         {
             return await _context.Titles
                                  .FromSqlRaw("SELECT * FROM get_all_titles()")
@@ -28,6 +29,14 @@ namespace Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<TitleRow>> GetTitlesAsync(string? titleType, string? genre)
+        {
+            var sql = "SELECT * FROM get_all_titles_with_genre({0}, {1})";
+
+            return await _context.TitleCatalog
+                .FromSqlRaw(sql, titleType, genre)
+                .ToListAsync();
+        }
 
         public async Task<IEnumerable<Title>> SearchTitlesAsync(long userId, string pattern)
         {

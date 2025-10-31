@@ -5,9 +5,10 @@ namespace Application.Interfaces
 {
     public interface ITitleService
     {
-        Task<IEnumerable<TitleDto>> GetAllMoviesAsync();
+        Task<IEnumerable<TitleDto>> GetpopularTitlesAsync();
         Task<IEnumerable<TitleDto>> GetAllSeriesAsync();
         Task<IEnumerable<TitleDto>> SearchTitlesAsync(long userId, string query);
-        
+        Task<IEnumerable<TitleCatalogDto>> GetTitlesAsync(string? titleType, string? genre);
+
     }
 }
