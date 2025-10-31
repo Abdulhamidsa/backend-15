@@ -1,5 +1,6 @@
 using Application.RowClasses;
 using Domain.Models;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
@@ -9,10 +10,12 @@ namespace Infrastructure.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Title> Titles { get; set; }
-        public DbSet<User> Users  => Set<User>();
+        public DbSet<User> Users => Set<User>();
         public DbSet<SearchHistory> SearchHistories { get; set; }
         public DbSet<Bookmark> Bookmarks { get; set; }
         public DbSet<Genre> Genre { get; set; }
+        public DbSet<UserRating> Ratings { get; set; }
+
         public DbSet<Name> Names { get; set; }
         public DbSet<PersonMetadata> PersonMetadata { get; set; }
         // Add these:
@@ -61,4 +64,3 @@ namespace Infrastructure.Data
     }
 }
 
-           

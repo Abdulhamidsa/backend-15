@@ -15,8 +15,8 @@ public class LoginRequest
 
 public class AuthResponse
 {
-    public long   UserId { get; set; }
-    public string Email  { get; set; } = default!;
+    public long UserId { get; set; }
+    public string Email { get; set; } = default!;
     public string Username { get; set; } = default!;
 
     // JWT placeholders (not implemented)
