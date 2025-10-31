@@ -1,8 +1,8 @@
 using Application.DTOs;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Application.Common; 
-using Microsoft.AspNetCore.Http; 
+using Application.Common;
+using Microsoft.AspNetCore.Http;
 
 namespace Api.Controllers
 {
