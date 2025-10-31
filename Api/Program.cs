@@ -6,10 +6,8 @@ using Application.Services;
 using Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Application.Common;
 using DotNetEnv;
 using System.Text;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +22,10 @@ builder.Services.AddScoped<ITitleRepository, TitleRepository>();
 builder.Services.AddScoped<ITitleService, TitleService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
-
+builder.Services.AddScoped<IBookmarkRepository, BookmarkRepository>();
+builder.Services.AddScoped<IBookmarkService, BookmarkService>();
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+builder.Services.AddScoped<IRatingService, RatingService>();
 builder.Services.Configure<JwtSettings>(options =>
 {
     options.SecretKey = Environment.GetEnvironmentVariable("JWT_SECRET")!;
@@ -70,3 +71,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.Run();
+
+public partial class Program { }
+
