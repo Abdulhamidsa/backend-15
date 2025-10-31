@@ -21,6 +21,7 @@ namespace Infrastructure.Data
         // Add these:
         public DbSet<CelebritySummaryRow> CelebritySummaryRows => Set<CelebritySummaryRow>();
         public DbSet<CelebrityProfileRow> CelebrityProfileRows => Set<CelebrityProfileRow>();
+        public DbSet<TitleRow> TitleCatalog => Set<TitleRow>();
 
 
 
@@ -60,6 +61,32 @@ namespace Infrastructure.Data
                 eb.Property(p => p.Bio).HasColumnName("bio");
                 eb.Property(p => p.Total_Votes).HasColumnName("total_votes");
             });
+
+            modelBuilder.Entity<TitleRow>(eb =>
+            {
+                eb.HasNoKey();
+                eb.ToView(null); // not a real table/view, comes from SQL function
+
+                eb.Property(p => p.Tconst).HasColumnName("tconst");
+                eb.Property(p => p.TitleType).HasColumnName("titletype");
+                eb.Property(p => p.PrimaryTitle).HasColumnName("primarytitle");
+                eb.Property(p => p.OriginalTitle).HasColumnName("originaltitle");
+                eb.Property(p => p.IsAdult).HasColumnName("isadult");
+                eb.Property(p => p.StartYear).HasColumnName("startyear");
+                eb.Property(p => p.EndYear).HasColumnName("endyear");
+                eb.Property(p => p.RuntimeMinutes).HasColumnName("runtimeminutes");
+                eb.Property(p => p.Awards).HasColumnName("awards");
+                eb.Property(p => p.Plot).HasColumnName("plot");
+                eb.Property(p => p.Rated).HasColumnName("rated");
+                eb.Property(p => p.Released).HasColumnName("released");
+                eb.Property(p => p.Poster).HasColumnName("poster");
+                eb.Property(p => p.ImdbVotes).HasColumnName("imdbvotes");
+                eb.Property(p => p.BoxOffice).HasColumnName("boxoffice");
+                eb.Property(p => p.Website).HasColumnName("website");
+                eb.Property(p => p.Metascore).HasColumnName("metascore");
+                eb.Property(p => p.Genre).HasColumnName("genre");
+            });
+
         }
     }
 }
