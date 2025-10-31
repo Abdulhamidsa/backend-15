@@ -1,8 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+﻿using Application.Common;
 using Application.DTOs;
 using Application.Interfaces;
-using Application.Common;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Api.Controllers
 {
@@ -30,18 +31,36 @@ namespace Api.Controllers
             var series = await _service.GetAllSeriesAsync();
             return Ok(ApiResponse<IEnumerable<TitleDto>>.Ok(series, "Series fetched"));
         }
-    
 
+
+        
+        [Authorize]
         [HttpGet("search")]
-        public async Task<IActionResult> Search([FromQuery] long userId, [FromQuery] string q)
+        public async Task<IActionResult> Search([FromQuery] string q)
         {
             if (string.IsNullOrWhiteSpace(q))
-            {
-                return BadRequest(ApiResponse<IEnumerable<TitleDto>>.Fail("Search query cannot be empty"));
-            }
+                return BadRequest("Search query cannot be empty.");
 
+            // ✅ Extract user ID from authenticated JWT claims
+            
+            var userIdClaim =
+                User.FindFirst("sub")?.Value ??
+                User.FindFirst(ClaimTypes.NameIdentifier)?.Value ??
+                User.FindFirst("user_id")?.Value ??
+                User.FindFirst("userid")?.Value;
+
+            if (userIdClaim == null)
+                return Unauthorized("User ID not found in token.");
+
+
+            if (!long.TryParse(userIdClaim, out var userId))
+                return Unauthorized("Invalid user ID in token.");
+
+            // Calling service with authenticated user's ID
             var results = await _service.SearchTitlesAsync(userId, q);
-            return Ok(ApiResponse<IEnumerable<TitleDto>>.Ok(results, "Search completed successfully"));
+
+            return Ok(ApiResponse<object>.Ok(results, "Search completed successfully."));
         }
     }
 }
+
