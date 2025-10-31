@@ -43,7 +43,10 @@ public class TitleService : ITitleService
         {
             Tconst = t.Tconst,
             PrimaryTitle = t.PrimaryTitle,
-            StartYear = t.StartYear
+            StartYear = t.StartYear,
+            TitleType = t.TitleType,
+            Poster = t.Poster
+
         });
     }
 
