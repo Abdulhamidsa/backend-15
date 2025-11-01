@@ -62,8 +62,14 @@ public class TitleService : ITitleService
             Type = r.TitleType,
             Poster = r.Poster,
             Genre = r.Genre, // will be like "Action" or "Action, Thriller"
-            
+
         });
     }
+         public async Task<string?> GetTitleInfoById(string tconst)
+    {
+        // we just forward the JSON from the DB to the controller
+        return await _repository.GetTitleInfoById(tconst);
+    }
 }
+
 
