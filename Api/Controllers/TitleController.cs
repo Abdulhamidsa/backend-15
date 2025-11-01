@@ -21,7 +21,7 @@ namespace Api.Controllers
         [HttpGet ("movies")]
         public async Task<IActionResult> GetAllMovies()
         {
-            var movies = await _service.GetAllMoviesAsync();
+            var movies = await _service.GetpopularTitlesAsync();
             return Ok(ApiResponse<IEnumerable<TitleDto>>.Ok(movies, "Movies fetched"));
         }
 
@@ -32,9 +32,15 @@ namespace Api.Controllers
             return Ok(ApiResponse<IEnumerable<TitleDto>>.Ok(series, "Series fetched"));
         }
 
+        [HttpGet("catalog")]
+        public async Task<IActionResult> GetTitles([FromQuery] string? type, [FromQuery] string? genre)
+        {
+            var data = await _service.GetTitlesAsync(type, genre);
 
-        
-        [Authorize]
+            return Ok(ApiResponse<object>.Ok(data, "OK"));
+        }
+
+            [Authorize]
         [HttpGet("search")]
         public async Task<IActionResult> Search([FromQuery] string q)
         {

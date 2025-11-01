@@ -12,9 +12,9 @@ public class TitleService : ITitleService
         _repository = repository;
     }
 
-    public async Task<IEnumerable<TitleDto>> GetAllMoviesAsync()
+    public async Task<IEnumerable<TitleDto>> GetpopularTitlesAsync()
     {
-        var titles = await _repository.GetAllMoviesAsync();
+        var titles = await _repository.GetpopularTitlesAsync();
 
         return titles.Select(t => new TitleDto
         {
@@ -50,4 +50,20 @@ public class TitleService : ITitleService
         });
     }
 
+    public async Task<IEnumerable<TitleCatalogDto>> GetTitlesAsync(string? titleType, string? genre)
+    {
+        var rows = await _repository.GetTitlesAsync(titleType, genre);
+
+        return rows.Select(r => new TitleCatalogDto
+        {
+            Id = r.Tconst,
+            Title = r.PrimaryTitle,
+            Year = r.StartYear,
+            Type = r.TitleType,
+            Poster = r.Poster,
+            Genre = r.Genre, // will be like "Action" or "Action, Thriller"
+            
+        });
+    }
 }
+
