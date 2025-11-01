@@ -32,8 +32,8 @@ namespace Api.Controllers
             return Ok(ApiResponse<IEnumerable<TitleDto>>.Ok(series, "Series fetched"));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetCatalog([FromQuery] string? type, [FromQuery] string? genre)
+        [HttpGet("catalog")]
+        public async Task<IActionResult> GetTitles([FromQuery] string? type, [FromQuery] string? genre)
         {
             var data = await _service.GetTitlesAsync(type, genre);
 

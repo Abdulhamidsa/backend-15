@@ -14,6 +14,6 @@ namespace Application.DTOs
         public string? Type { get; set; }               // TitleType (movie, tvSeries,...)
         public string? Poster { get; set; }             // Poster URL
         public string? Genre { get; set; }              // "Action, Sci-Fi"
-        public int? Metascore { get; set; }
+        
     }
 }

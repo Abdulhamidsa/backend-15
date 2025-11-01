@@ -31,7 +31,7 @@ namespace Infrastructure.Repositories
 
         public async Task<List<TitleRow>> GetTitlesAsync(string? titleType, string? genre)
         {
-            var sql = "SELECT * FROM get_all_titles_with_genre({0}, {1})";
+            var sql = "SELECT * FROM get_all_titles_with_genre({0}, {1}) LIMIT 20";
 
             return await _context.TitleCatalog
                 .FromSqlRaw(sql, titleType, genre)
