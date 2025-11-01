@@ -40,6 +40,21 @@ namespace Api.Controllers
             return Ok(ApiResponse<object>.Ok(data, "OK"));
         }
 
+        [HttpGet("{id}/basic")]
+        public async Task<IActionResult> GetTitleById([FromRoute] string id)
+        {
+            var json = await _service.GetTitleInfoById(id);
+
+            if (json == null)
+                return NotFound(ApiResponse<string>.Fail("Title not found or unavailable"));
+
+            return Ok(ApiResponse<object>.Ok(
+                System.Text.Json.JsonSerializer.Deserialize<object>(json)!,
+                "OK"
+            ));
+        }
+    
+
             [Authorize]
         [HttpGet("search")]
         public async Task<IActionResult> Search([FromQuery] string q)

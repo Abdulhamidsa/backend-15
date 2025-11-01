@@ -9,6 +9,7 @@ namespace Application.Interfaces
         Task<IEnumerable<TitleDto>> GetAllSeriesAsync();
         Task<IEnumerable<TitleDto>> SearchTitlesAsync(long userId, string query);
         Task<IEnumerable<TitleCatalogDto>> GetTitlesAsync(string? titleType, string? genre);
+        Task<string?> GetTitleInfoById(string tconst);
 
     }
 }
