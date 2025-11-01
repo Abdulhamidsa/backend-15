@@ -65,6 +65,7 @@ namespace Infrastructure.Repositories
             cmd.Parameters.Add(param);
 
             var result = await cmd.ExecuteScalarAsync();
+
             if (result == null || result == DBNull.Value)
                 return null;
 
