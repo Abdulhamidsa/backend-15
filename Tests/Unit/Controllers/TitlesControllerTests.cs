@@ -182,8 +182,86 @@ namespace Tests.Unit.Controllers
                 Times.Never
             );
         }
-    }
 
+        [Fact]
+        public async Task GetTitles_ReturnsOk_AndPassesQueryParamsToService()
+        {
+            // Arrange
+            var mockService = new Mock<ITitleService>();
+
+            // Fake data from the service
+            var fakeCatalogResult = new List<TitleCatalogDto>
+        {
+            new TitleCatalogDto
+            {
+                Id = "tt999",
+                Title = "The Dark Knight",
+                Year = 2008,
+                Type = "movie",
+                Poster = "http://example.com/darkknight.jpg",
+                Genre = "Action, Crime"
+            },
+            new TitleCatalogDto
+            {
+                Id = "tt888",
+                Title = "Inception",
+                Year = 2010,
+                Type = "movie",
+                Poster = "http://example.com/inception.jpg",
+                Genre = "Sci-Fi, Thriller"
+            }
+        };
+
+            // Mock the service so when controller calls GetTitlesAsync("movie","crime")
+            // it returns fakeCatalogResult
+            mockService
+                .Setup(s => s.GetTitlesAsync("movie", "crime"))
+                .ReturnsAsync(fakeCatalogResult);
+
+            var controller = new TitlesController(mockService.Object);
+
+            // Act
+            var actionResult = await controller.GetTitles("movie", "crime");
+
+            // Assert
+            // 1. HTTP 200 OK result
+            var okResult = Assert.IsType<OkObjectResult>(actionResult);
+            Assert.Equal(200, okResult.StatusCode);
+
+            // 2. Body should be ApiResponse<object>
+            var apiResponse = Assert.IsType<ApiResponse<object>>(okResult.Value);
+
+            // 3. Wrapper properties
+            Assert.True(apiResponse.Success);
+            Assert.Equal("OK", apiResponse.Message);
+
+            // 4. Data inside ApiResponse<object> should actually be our list of TitleCatalogDto
+            var data = Assert.IsType<List<TitleCatalogDto>>(apiResponse.Data);
+            Assert.Equal(2, data.Count);
+
+            // Check first item
+            Assert.Equal("tt999", data[0].Id);
+            Assert.Equal("The Dark Knight", data[0].Title);
+            Assert.Equal(2008, data[0].Year);
+            Assert.Equal("movie", data[0].Type);
+            Assert.Equal("http://example.com/darkknight.jpg", data[0].Poster);
+            Assert.Equal("Action, Crime", data[0].Genre);
+
+            // Check second item
+            Assert.Equal("tt888", data[1].Id);
+            Assert.Equal("Inception", data[1].Title);
+            Assert.Equal(2010, data[1].Year);
+            Assert.Equal("movie", data[1].Type);
+            Assert.Equal("http://example.com/inception.jpg", data[1].Poster);
+            Assert.Equal("Sci-Fi, Thriller", data[1].Genre);
+
+            // 5. Make sure the service got called once with the SAME query params
+            mockService.Verify(
+                s => s.GetTitlesAsync("movie", "crime"),
+                Times.Once
+            );
+        }
+    }
 }
 
 
