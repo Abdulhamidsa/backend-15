@@ -2,7 +2,6 @@ using Application.Common;
 using Application.Interfaces;
 using Application.services;
 using Application.Services;
-using DotNetEnv;
 using Infrastructure.Data;
 using Infrastructure.repositories;
 using Infrastructure.Repositories;
@@ -10,18 +9,16 @@ using Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-Env.Load();
-
-var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
-
+// Configure database with connection string from appsettings
+var connectionString = builder.Configuration.GetConnectionString("DB_CONNECTION");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
+// Register services
 builder.Services.AddScoped<ITitleRepository, TitleRepository>();
 builder.Services.AddScoped<ITitleService, TitleService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -33,27 +30,15 @@ builder.Services.AddScoped<IRatingService, RatingService>();
 builder.Services.AddScoped<IPeopleRepository, PeopleRepository>();
 builder.Services.AddScoped<IPeopleService, PeopleService>();
 
-builder.Services.Configure<JwtSettings>(options =>
-{
-    options.SecretKey = Environment.GetEnvironmentVariable("JWT_SECRET")!;
-    options.Issuer = Environment.GetEnvironmentVariable("JWT_ISSUER")!;
-    options.Audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE")!;
-    options.ExpiryMinutes = int.Parse(Environment.GetEnvironmentVariable("JWT_EXPIRY_MINUTES")!);
-});
-
+// Configure JWT settings from appsettings
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 builder.Services.AddSingleton<IJwtService, JwtService>();
 
+// Configure JWT authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
 {
-    var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>()
-        ?? new JwtSettings
-        {
-            SecretKey = Environment.GetEnvironmentVariable("JWT_SECRET")!,
-            Issuer = Environment.GetEnvironmentVariable("JWT_ISSUER")!,
-            Audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE")!,
-            ExpiryMinutes = int.Parse(Environment.GetEnvironmentVariable("JWT_EXPIRY_MINUTES")!)
-        };
+    var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>()!;
 
     options.TokenValidationParameters = new TokenValidationParameters
     {

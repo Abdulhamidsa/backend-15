@@ -50,13 +50,14 @@ public class ExceptionMiddlewareTests
         Assert.Equal(400, context.Response.StatusCode);
 
         var error = JsonSerializer.Deserialize<ErrorResponse>(responseText);
-        Assert.False(error.success);
+        Assert.NotNull(error);
+        Assert.False(error!.success);
         Assert.Equal("Test error", error.message);
     }
 
     private class ErrorResponse
     {
         public bool success { get; set; }
-        public string message { get; set; }
+        public string? message { get; set; }
     }
 }
