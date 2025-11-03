@@ -16,19 +16,13 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Title>> GetpopularTitlesAsync()
+        public async Task<IEnumerable<Title>> GetAllTitlesAsync()
         {
             return await _context.Titles
-                                 .FromSqlRaw("SELECT * FROM get_top_titles()")
+                                 .FromSqlRaw("SELECT * FROM get_all_titles() LIMIT 20")
                                  .ToListAsync();
         }
 
-        public async Task<IEnumerable<Title>> GetAllSeriesAsync()
-        {
-            return await _context.Titles
-                .FromSqlRaw("SELECT * FROM get_all_series('series')")
-                .ToListAsync();
-        }
 
         public async Task<List<TitleRow>> GetTitlesAsync(string? titleType, string? genre)
         {
@@ -73,4 +67,4 @@ namespace Infrastructure.Repositories
         }
     }
 }
- 
+
