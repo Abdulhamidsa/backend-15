@@ -21,8 +21,8 @@ public class TitleService : ITitleService
             Tconst = t.Tconst,
             PrimaryTitle = t.PrimaryTitle,
             StartYear = t.StartYear,
-            TitleType = t.TitleType
-            
+            TitleType = t.TitleType ?? "unknown",
+
         });
     }
 
@@ -34,7 +34,8 @@ public class TitleService : ITitleService
         {
             Tconst = s.Tconst,
             PrimaryTitle = s.PrimaryTitle,
-            StartYear = s.StartYear
+            StartYear = s.StartYear,
+            TitleType = s.TitleType ?? "unknown"
         });
     }
 
@@ -46,7 +47,7 @@ public class TitleService : ITitleService
             Tconst = t.Tconst,
             PrimaryTitle = t.PrimaryTitle,
             StartYear = t.StartYear,
-            TitleType = t.TitleType,
+            TitleType = t.TitleType ?? "unknown",
             Poster = t.Poster
 
         });
@@ -67,7 +68,7 @@ public class TitleService : ITitleService
 
         });
     }
-         public async Task<string?> GetTitleInfoById(string tconst)
+    public async Task<string?> GetTitleInfoById(string tconst)
     {
         // we just forward the JSON from the DB to the controller
         return await _repository.GetTitleInfoById(tconst);

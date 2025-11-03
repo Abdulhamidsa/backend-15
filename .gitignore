@@ -1,9 +1,15 @@
-# ---- .NET Build Artifacts ----
+# ================================
+#   .NET / C# Universal .gitignore
+# ================================
+
+# ---- Build Artifacts ----
 bin/
 obj/
 out/
+debug/
+release/
 
-# ---- User-specific files ----
+# ---- User-specific Files ----
 *.user
 *.suo
 *.userosscache
@@ -12,53 +18,80 @@ out/
 # ---- Visual Studio / VS Code ----
 .vs/
 .vscode/
+*.code-workspace
 *.DS_Store
 
 # ---- Logs ----
 *.log
 logs/
+log/
+Logs/
 
-# ---- Environment & Secret Files ----
+# ---- Environment & Secrets ----
 .env
 *.env
 secrets.json
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.local.json
 
-# ---- Database Migrations Cache ----
+# ---- Database & Migrations ----
 Migrations/
-
-# ---- ASP.NET Scaffolding ----
-ScaffoldingReadMe.txt
+*.mdf
+*.ldf
 
 # ---- NuGet Packages ----
 *.nupkg
 *.snupkg
 packages/
+.nuget/
 
-# ---- Publish Output ----
+# ---- Publish / Build Output ----
 publish/
 *.pubxml
 *.publishsettings
+*.exe
+*.dll
+*.pdb
 
-# ---- Coverage Reports ----
+# ---- Temporary Files ----
+*.tmp
+*.temp
+~$*
+*.bak
+*.swp
+*.lock
+
+# ---- Coverage & Reports ----
 coverage/
+TestResults/
 *.coverage
 *.coveragexml
+*.trx
 
-# ---- Rider / JetBrains ----
+# ---- IDEs / Tools ----
 .idea/
 *.iml
+*.DotSettings.user
+_ReSharper*/
+[Rr]e[Ss]harper
+[Tt]est[Rr]esult*
 
 # ---- OS Generated Files ----
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+$RECYCLE.BIN/
 
-# ---- ReSharper ----
-_ReSharper*/
-*.[Rr]e[Ss]harper
-*.DotSettings.user
+# ---- Rider / JetBrains Cache ----
+.idea/
+*.ipr
+*.iws
 
-# ---- Temporary Files ----
-~$*
-*.tmp
-*.temp
+# ---- Docker / Containers ----
+docker-compose.override.yml
+*.pid
+*.tar
+
+# ---- Optional: Add custom ignores below ----
+# e.g., your own test config or private folders
