@@ -12,9 +12,9 @@ public class TitleService : ITitleService
         _repository = repository;
     }
 
-    public async Task<IEnumerable<TitleDto>> GetpopularTitlesAsync()
+    public async Task<IEnumerable<TitleDto>> GetAllTitlesAsync()
     {
-        var titles = await _repository.GetpopularTitlesAsync();
+        var titles = await _repository.GetAllTitlesAsync();
 
         return titles.Select(t => new TitleDto
         {
@@ -23,20 +23,8 @@ public class TitleService : ITitleService
             StartYear = t.StartYear,
             TitleType = t.TitleType,
             Poster = t.Poster
-            
-            
-        });
-    }
 
-    public async Task<IEnumerable<TitleDto>> GetAllSeriesAsync()
-    {
-        var series = await _repository.GetAllSeriesAsync();
 
-        return series.Select(s => new TitleDto
-        {
-            Tconst = s.Tconst,
-            PrimaryTitle = s.PrimaryTitle,
-            StartYear = s.StartYear
         });
     }
 
@@ -69,7 +57,7 @@ public class TitleService : ITitleService
 
         });
     }
-         public async Task<string?> GetTitleInfoById(string tconst)
+    public async Task<string?> GetTitleInfoById(string tconst)
     {
         // we just forward the JSON from the DB to the controller
         return await _repository.GetTitleInfoById(tconst);

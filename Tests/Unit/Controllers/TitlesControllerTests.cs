@@ -31,7 +31,7 @@ namespace Tests.Unit.Controllers
 
             // tell the mock how to behave
             mockService
-                .Setup(s => s.GetpopularTitlesAsync())
+                .Setup(s => s.GetAllTitlesAsync())
                 .ReturnsAsync(fakeTitles);
 
             //mockService.Object gives you the “fake ITitleService”.
@@ -42,7 +42,7 @@ namespace Tests.Unit.Controllers
 
             //actionResult is whatever the controller returned, usually an IActionResult.
             //our case, it’ll be an OkObjectResult.
-            var actionResult = await controller.GetAllMovies();
+            var actionResult = await controller.GetAllTitles();
 
             // Assert
             // 1. It should be OkObjectResult
@@ -69,7 +69,7 @@ namespace Tests.Unit.Controllers
             Assert.Equal("Batman", first.PrimaryTitle);
 
             // 5. Make sure service was called once
-            mockService.Verify(s => s.GetpopularTitlesAsync(), Times.Once);
+            mockService.Verify(s => s.GetAllTitlesAsync(), Times.Once);
         }
 
 

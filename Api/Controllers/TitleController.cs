@@ -19,19 +19,13 @@ namespace Api.Controllers
             _service = service;
         }
 
-        [HttpGet("movies")]
-        public async Task<IActionResult> GetAllMovies()
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllTitles()
         {
-            var movies = await _service.GetpopularTitlesAsync();
-            return Ok(ApiResponse<IEnumerable<TitleDto>>.Ok(movies, "Movies fetched"));
+            var titles = await _service.GetAllTitlesAsync();
+            return Ok(ApiResponse<IEnumerable<TitleDto>>.Ok(titles, "Titles fetched"));
         }
 
-        [HttpGet("series")]
-        public async Task<IActionResult> GetAllSeries()
-        {
-            var series = await _service.GetAllSeriesAsync();
-            return Ok(ApiResponse<IEnumerable<TitleDto>>.Ok(series, "Series fetched"));
-        }
 
         [HttpGet("catalog")]
         public async Task<IActionResult> GetTitles([FromQuery] string? type, [FromQuery] string? genre)
