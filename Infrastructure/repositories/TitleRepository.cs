@@ -19,7 +19,7 @@ namespace Infrastructure.Repositories
         public async Task<IEnumerable<Title>> GetpopularTitlesAsync()
         {
             return await _context.Titles
-                                 .FromSqlRaw("SELECT * FROM get_all_titles()")
+                                 .FromSqlRaw("SELECT * FROM get_top_titles()")
                                  .ToListAsync();
         }
 
