@@ -28,25 +28,35 @@ public class TestApplicationFactory : WebApplicationFactory<Program>
             services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(config.GetConnectionString("DB_CONNECTION")));
 
-            // Ensure database and stored procedures exist
+            // Ensure database exists - uses existing DB with your functions
             using var scope = services.BuildServiceProvider().CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            // Only ensure database exists, don't drop or recreate
             context.Database.EnsureCreated();
 
-            // Create bookmark stored procedures for testing
-
-            // Ensure at least one test movie exists
+            // Ensure test data exists (movies for testing)
             EnsureTestDataExists(context);
         });
     }
 
-    public async Task CleanUsersAsync()
+    // Clean test data helper - only removes data, not DB structure
+    public async Task CleanTestDataAsync()
     {
         using var scope = Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        db.Users.RemoveRange(db.Users);
-        await db.SaveChangesAsync();
+
+        // Remove all users (this will cascade delete bookmarks due to FK)
+        var users = await db.Users.ToListAsync();
+        if (users.Any())
+        {
+            db.Users.RemoveRange(users);
+            await db.SaveChangesAsync();
+        }
     }
+
+    // Keep the old method for backward compatibility
+    public async Task CleanUsersAsync() => await CleanTestDataAsync();
 
     private static void EnsureTestDataExists(AppDbContext context)
     {
