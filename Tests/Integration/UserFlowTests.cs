@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Tests.Integration;
 
-// 🧪 Integration tests written by a student for learning purposes
+// Integration tests written by a student for learning purposes
 // This file tests the entire user flow — from registration and login,
 // all the way to adding and removing bookmarks in the database.
 
@@ -27,7 +27,7 @@ public class UserFlowTests : IClassFixture<TestApplicationFactory>
         _client = factory.CreateClient();
     }
 
-    // 🧑‍💻 helper function that registers and logs in a user, then sets the JWT header automatically
+    // helper function that registers and logs in a user, then sets the JWT header automatically
 
     private async Task<string> AuthenticateAsync(string email, string username)
     {
@@ -80,7 +80,7 @@ public class UserFlowTests : IClassFixture<TestApplicationFactory>
         // create and log in the user
         await AuthenticateAsync("flow@test.com", "flowuser");
 
-        // 1️⃣ Add bookmark
+        // Add bookmark
         var addRes = await _client.PostAsync($"/api/bookmarks/toggle/{movieId}", null);
         var addBody = await addRes.Content.ReadFromJsonAsync<ApiResponse<object>>();
         addRes.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -93,7 +93,7 @@ public class UserFlowTests : IClassFixture<TestApplicationFactory>
             db.Bookmarks.Any(b => b.Tconst == movieId).Should().BeTrue();
         }
 
-        // 2️⃣ Remove bookmark
+        // 2Remove bookmark
         var removeRes = await _client.PostAsync($"/api/bookmarks/toggle/{movieId}", null);
         var removeBody = await removeRes.Content.ReadFromJsonAsync<ApiResponse<object>>();
         removeRes.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -106,7 +106,7 @@ public class UserFlowTests : IClassFixture<TestApplicationFactory>
             db.Bookmarks.Any(b => b.Tconst == movieId).Should().BeFalse();
         }
 
-        // 3️⃣ Add again and test GET endpoint
+        // Add again and test GET endpoint
         await _client.PostAsync($"/api/bookmarks/toggle/{movieId}", null);
         var getRes = await _client.GetAsync("/api/bookmarks");
         var getBody = await getRes.Content.ReadFromJsonAsync<ApiResponse<List<object>>>();
