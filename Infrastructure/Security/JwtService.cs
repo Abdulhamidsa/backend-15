@@ -22,6 +22,7 @@ namespace Infrastructure.Security
         {
             var claims = new[]
             {
+                new Claim("id", userId.ToString()),
                 new Claim("sub", userId.ToString()),
                 new Claim("email", email),
                 new Claim("username", username)

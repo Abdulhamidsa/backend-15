@@ -38,8 +38,6 @@ builder.Services.AddScoped<IPeopleService, PeopleService>();
 
 // Configure JWT settings from appsettings
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
-
-// Make sure JwtService does NOT depend on scoped things like DbContext if it is Singleton
 builder.Services.AddSingleton<IJwtService, JwtService>();
 
 // Configure JWT authentication
@@ -62,17 +60,30 @@ builder.Services
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(jwtSettings.SecretKey))
         };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                // Read JWT from cookie named 'accesstoken'
+                if (context.Request.Cookies.ContainsKey("accesstoken"))
+                {
+                    context.Token = context.Request.Cookies["accesstoken"];
+                }
+
+                return Task.CompletedTask;
+            }
+        };
     });
 
-// CORS for your Vite frontend at http://localhost:5173
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins("http://localhost:5173", "https://localhost:5173")
               .AllowAnyHeader()
-              .AllowAnyMethod();
-        // If you ever send cookies/credentials: .AllowCredentials();
+              .AllowAnyMethod()
+              .AllowCredentials();
     });
 });
 
@@ -95,7 +106,6 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// CORS should be early in the pipeline
 app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthentication();
@@ -105,5 +115,4 @@ app.MapControllers();
 
 app.Run();
 
-// Needed for integration tests
 public partial class Program { }
