@@ -54,35 +54,10 @@ namespace Api.Controllers
         [HttpGet("search")]
         public async Task<IActionResult> Search([FromQuery] string q)
         {
-            if (string.IsNullOrWhiteSpace(q))
-                return BadRequest("Search query cannot be empty.");
-
-            try
-            {
-                //  Use our helper to extract user ID
-                var userId = User.GetUserId();
-
-                //  Call our service with authenticated user's ID
-                var results = await _service.SearchTitlesAsync(userId, q);
-
-                //  Return a consistent success response
-                return Ok(ApiResponse<object>.Ok(results, "Search completed successfully."));
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                // Missing or invalid claim
-                return Unauthorized(ApiResponse<string>.Fail(ex.Message));
-            }
-            catch (FormatException)
-            {
-                // Claim not convertible to long
-                return Unauthorized(ApiResponse<string>.Fail("Invalid user ID format in token."));
-            }
-            catch (Exception ex)
-            {
-                // Any unexpected errors
-                return StatusCode(500, ApiResponse<string>.Fail($"An unexpected error occurred: {ex.Message}"));
-            }
+            var userId = User.GetUserId();
+            var results = await _service.SearchTitlesAsync(userId, q);
+            return Ok(ApiResponse<object>.Ok(results));
         }
+
     }
 }
