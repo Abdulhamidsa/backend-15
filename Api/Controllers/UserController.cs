@@ -51,7 +51,7 @@ namespace Api.Controllers
             var result = await _service.LoginAsync(request);
 
             // Set access token in httpOnly cookie (exact name: accesstoken)
-            if (result.AccessToken != null)
+                if (result.AccessToken != null)
             {
                 Response.Cookies.Append("accesstoken", result.AccessToken, new CookieOptions
                 {
